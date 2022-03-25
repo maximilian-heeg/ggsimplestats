@@ -8,6 +8,7 @@
 #'
 #' @return A tibble
 #' @importFrom rlang .data
+#' @noRd
 formatPMCMRPlusResults <- function(res, y){
   res <- res$p.value %>%
     as.table() %>%
@@ -24,7 +25,15 @@ formatPMCMRPlusResults <- function(res, y){
 }
 
 
-
+#' Helper function to formats the the pvalues in geomStat
+#'
+#'
+#' @param data data.frame
+#' @param step.increase Increse betweeen the different brackets
+#' @param hide.ns Remove insignificant values
+#'
+#' @return data.frame
+#' @noRd
 formatPValues <- function(data, step.increase=0.05, hide.ns=TRUE) {
   if(hide.ns)
     data = data[data$p < 0.05, ]

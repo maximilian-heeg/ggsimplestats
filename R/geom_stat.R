@@ -3,7 +3,7 @@
 #' Geom layer for plotting statistics
 #'
 #' @import ggplot2
-#' @NoRd
+#' @noRd
 GeomStat <- ggproto(
   "GeomStat",
   Geom,

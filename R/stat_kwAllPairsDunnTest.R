@@ -41,7 +41,7 @@ stat_kwAllPairsDunnTest <- function(mapping = NULL, data = NULL, geom = GeomStat
 #'
 #' @import ggplot2
 #' @import grid
-#' @NoRd
+#' @noRd
 StatKwAllPairsDunnTest <- ggproto(
   "StatKwAllPairsDunnTest",
   Stat,
