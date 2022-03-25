@@ -4,6 +4,8 @@
 # ggsimplestats
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/maximilian-heeg/ggsimplestats/workflows/R-CMD-check/badge.svg)](https://github.com/maximilian-heeg/ggsimplestats/actions)
 <!-- badges: end -->
 
 The goal of ggsimplestats is to provide an easy interface to add
