@@ -38,7 +38,7 @@ ggplot(PlantGrowth, aes(group, weight, fill=group)) +
 #> z-quantiles were corrected for ties.
 ```
 
-<img src="man/figures/README-example-1.png" width="100%" />
+![](man/figures/README-example-1.png)<!-- -->
 
 ### Change format of p-value
 
@@ -56,7 +56,7 @@ ggplot(PlantGrowth, aes(group, weight, fill=group)) +
 #> z-quantiles were corrected for ties.
 ```
 
-<img src="man/figures/README-change p value format-1.png" width="100%" />
+![](man/figures/README-change-p-value-format-1.png)<!-- -->
 
 Or you can pass a lambda function to create a custom label.
 
@@ -69,7 +69,7 @@ ggplot(PlantGrowth, aes(group, weight, fill=group)) +
 #> z-quantiles were corrected for ties.
 ```
 
-<img src="man/figures/README-p value lambda function-1.png" width="100%" />
+![](man/figures/README-p-value-lambda-function-1.png)<!-- -->
 
 ### Use with facets
 
@@ -87,7 +87,7 @@ ggplot(na.omit(palmerpenguins::penguins), aes(species, bill_length_mm, fill=spec
 #> z-quantiles were corrected for ties.
 ```
 
-<img src="man/figures/README-facet-1.png" width="100%" />
+![](man/figures/README-facet-1.png)<!-- -->
 
 ### Parametric test
 
@@ -99,8 +99,8 @@ ggplot(PlantGrowth, aes(group, weight, fill=group)) +
   stat_tukeyHSD()
 ```
 
-<img src="man/figures/README-TukeyHSD-1.png" width="100%" /> Again, this
-works with facets too.
+![](man/figures/README-TukeyHSD-1.png)<!-- --> Again, this works with
+facets too.
 
 ``` r
 ggplot(na.omit(palmerpenguins::penguins), aes(species, bill_length_mm, fill=species)) +
@@ -109,7 +109,7 @@ ggplot(na.omit(palmerpenguins::penguins), aes(species, bill_length_mm, fill=spec
   facet_grid(~sex)
 ```
 
-<img src="man/figures/README-tukey and facet-1.png" width="100%" />
+![](man/figures/README-tukey-and-facet-1.png)<!-- -->
 
 `step.increase` changes the space between two brackets.
 
@@ -123,4 +123,4 @@ ggplot(na.omit(palmerpenguins::penguins), aes(species, bill_length_mm, fill=spec
   scale_y_continuous(expand = expansion(mult = c(0,0.15)))
 ```
 
-<img src="man/figures/README-step.increase-1.png" width="100%" />
+![](man/figures/README-step.increase-1.png)<!-- -->

@@ -8,8 +8,7 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
+  fig.path = "man/figures/README-"
 )
 ```
 
@@ -35,7 +34,7 @@ devtools::install_github("maximilian-heeg/ggsimplestats")
 
 This is a minimal example of how to add the statistics to a plot. In this example we use the `PlantGrowth` dataset.
 
-```{r example, fig.height=4, fig.width=5}
+```{r example}
 library(ggplot2)
 library(ggsimplestats)
 
@@ -50,7 +49,7 @@ ggplot(PlantGrowth, aes(group, weight, fill=group)) +
 
 If wanted, the format of the p value / label can be changed. The default uses `scales::pvalue`. To format the p values as 'stars' we can. e.g. use the `stars.pval` function from `gtools`
 
-```{r change p value format}
+```{r change-p-value-format}
 ggplot(PlantGrowth, aes(group, weight, fill=group)) +
   geom_boxplot()  +
   stat_kwAllPairsDunnTest(format.fun = gtools::stars.pval, 
@@ -60,7 +59,7 @@ ggplot(PlantGrowth, aes(group, weight, fill=group)) +
 
 Or you can pass a lambda function to create a custom label.
 
-```{r p value lambda function}
+```{r p-value-lambda-function}
 ggplot(PlantGrowth, aes(group, weight, fill=group)) +
   geom_boxplot()  +
   stat_kwAllPairsDunnTest(format.fun = \(x) {glue::glue('my p-value {scales::pvalue(x)}')},
@@ -92,7 +91,7 @@ ggplot(PlantGrowth, aes(group, weight, fill=group)) +
 ```
 Again, this works with facets too.
 
-```{r tukey and facet}
+```{r tukey-and-facet}
 ggplot(na.omit(palmerpenguins::penguins), aes(species, bill_length_mm, fill=species)) +
   geom_boxplot()  +
   stat_tukeyHSD(vjust = -.2) +
