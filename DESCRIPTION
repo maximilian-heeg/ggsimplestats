@@ -14,8 +14,13 @@ Imports:
     ggplot2,
     magrittr,
     rlang,
-    tibble
+    scales,
+    tibble,
+    tidyr
 Suggests: 
+    ggthemes,
+    glue,
+    palmerpenguins,
     PMCMRplus,
     testthat (>= 3.0.0),
     vdiffr

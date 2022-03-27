@@ -1,9 +1,6 @@
 #' Add results from TukeyHSD to plot
 #'
-#' Uses [PMCMRplus::kwAllPairsDunnTest()] to perform Dunn's non-parametric
-#' all-pairs comparison test for Kruskal-type ranked data and adds the
-#' resulting p-values to the plot.
-#' Only works if the x-axis is a discrete scale.
+#' Uses [stats::TukeyHSD()] to calculate p values for each panel. Only works if the x-axis is a discrete scale.
 #'
 #' @inheritParams ggplot2::layer
 #' @param geom he geometric object to use display the data. Set to `GeomStat` and usually no need to change.
@@ -30,15 +27,15 @@
 #'
 #' ggplot(PlantGrowth, aes(group, weight, fill = group)) +
 #'   geom_boxplot() +
-#'   stat_kwAllPairsDunnTest()
-stat_kwAllPairsDunnTest <- function(mapping = NULL, data = NULL, geom = GeomStat,
-                                    position = "identity", na.rm = FALSE, show.legend = NA,
-                                    size = 10, hide.ns = TRUE, tick.length = 0.02,
-                                    format.fun = pvalue, vjust = 0,
-                                    step.increase = 0.05,
-                                    inherit.aes = TRUE, ...) {
+#'   stat_tukeyHSD()
+stat_tukeyHSD <- function(mapping = NULL, data = NULL, geom = GeomStat,
+                          position = "identity", na.rm = FALSE, show.legend = NA,
+                          size = 10, hide.ns = TRUE, tick.length = 0.02,
+                          format.fun = pvalue, vjust = 0,
+                          step.increase = 0.05,
+                          inherit.aes = TRUE, ...) {
   layer(
-    stat = StatKwAllPairsDunnTest, data = data, mapping = mapping, geom = geom,
+    stat = StatTukeyHSD, data = data, mapping = mapping, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
     params = list(
       size = size, hide.ns = hide.ns, tick.length = tick.length,
@@ -49,21 +46,23 @@ stat_kwAllPairsDunnTest <- function(mapping = NULL, data = NULL, geom = GeomStat
 }
 
 
-#' StatKwAllPairsDunnTest
+#' StatTukeyHSD
 #'
 #' Stat layer for calculating statistics
-#' Uses `StatKwAllPairsDunnTest` from `PMCMRplus`
+#' Uses `TukeyHSD` from `stats`
 #'
 #' @import ggplot2
 #' @import grid
+#' @import stats
+#' @import tibble
 #' @noRd
-StatKwAllPairsDunnTest <- ggproto(
-  "StatKwAllPairsDunnTest",
+StatTukeyHSD <- ggproto(
+  "StatTukeyHSD",
   Stat,
   compute_panel = function(data, scales) {
-    if (!requireNamespace("PMCMRplus", quietly = TRUE)) {
+    if (!requireNamespace("stats", quietly = TRUE)) {
       stop(
-        "Package \"PMCMRplus\" must be installed to use this function."
+        "Package \"stats\" must be installed to use this function."
       )
     }
     if (!scales$x$is_discrete()) {
@@ -72,13 +71,18 @@ StatKwAllPairsDunnTest <- ggproto(
       )
     }
 
+    data$x <- as.factor(data$x)
+    a <- aov(y ~ x, data = data)
+    res <- TukeyHSD(a, "x")$x
+    res <- as.data.frame(res) %>%
+      tibble::rownames_to_column() %>%
+      tidyr::separate(rowname, into = c("x", "xend"), sep = "-") %>%
+      dplyr::select(x, xend, p = `p adj`)
 
 
-    res <- PMCMRplus::kwAllPairsDunnTest(
-      x = data$y,
-      g = data$x
-    )
-    res <- formatPMCMRPlusResults(res, y = max(data$y))
+    res$x <- as.numeric(as.character(res$x))
+    res$xend <- as.numeric(as.character(res$xend))
+    res$y <- max(data$y)
 
     return(res)
   },
