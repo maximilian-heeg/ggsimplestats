@@ -1,4 +1,4 @@
-#' Add results from TukeyHSD to plot
+#' Add results from Dunn's non-parametric test to plot
 #'
 #' Uses [PMCMRplus::kwAllPairsDunnTest()] to perform Dunn's non-parametric
 #' all-pairs comparison test for Kruskal-type ranked data and adds the
