@@ -21,7 +21,7 @@ library(ggsimplestats)
 ```
 
 
-# Minimal Example
+## Minimal Example
 
 This is a minimal example of how to add the statistics to a plot. In this example we use the `PlantGrowth` dataset.
 
