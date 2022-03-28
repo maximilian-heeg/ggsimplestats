@@ -46,7 +46,7 @@ Currently, four different tests are supported.
 - Two parametric tests
   - `stat_tukeyHSD()` performes a TukeyHSD posthoc test on a anova.
   - `stat_mixedModel()` creates a mixed model with  `lme4::lmer()` using `y ~ x + (1|group)`.  
-     In a second step, significanes are calcuated using `emmeans::pairs(emmeans::emmeans(model ~ x))`.
+     In a second step, significanes are calcuated using `graphics::pairs(emmeans::emmeans(model ~ x))`.
 - Two non-parametric tests
   - `stat_kwAllPairsDunnTest()` uses `PMCMRplus::kwAllPairsDunnTest()` to perform Dunn's non-parametric all-pairs comparison test for Kruskal-type ranked data
   - `stat_frdAllPairsNemenyiTest()` uses `PMCMRplus::frdAllPairsNemenyiTest()` to perform Nemenyi's all-pairs comparisons tests of Friedman-type ranked data
