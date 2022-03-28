@@ -101,18 +101,18 @@
 <li>Two parametric tests
 <ul>
 <li>
-<code>stat_tukeyHSD</code> performes a TukeyHSD posthoc test on a anova.</li>
+<code><a href="../reference/stat_tukeyHSD.html">stat_tukeyHSD()</a></code> performes a TukeyHSD posthoc test on a anova.</li>
 <li>
-<code>stat_mixedModel</code> creates a mixed model with <code>lmer</code> using <code>y ~ x + (1|group)</code>.<br>
-In a second step, significanes are calcuated using <code>pairs(emmeans(model ~ x))</code>.</li>
+<code><a href="../reference/stat_mixedModel.html">stat_mixedModel()</a></code> creates a mixed model with <code><a href="https://rdrr.io/pkg/lme4/man/lmer.html" class="external-link">lme4::lmer()</a></code> using <code>y ~ x + (1|group)</code>.<br>
+In a second step, significanes are calcuated using <code>graphics::pairs(emmeans::emmeans(model ~ x))</code>.</li>
 </ul>
 </li>
 <li>Two non-parametric tests
 <ul>
 <li>
-<code>stat_kwAllPairsDunnTest</code> uses <code><a href="https://rdrr.io/pkg/PMCMRplus/man/kwAllPairsDunnTest.html" class="external-link">PMCMRplus::kwAllPairsDunnTest()</a></code> to perform Dunn’s non-parametric all-pairs comparison test for Kruskal-type ranked data</li>
+<code><a href="../reference/stat_kwAllPairsDunnTest.html">stat_kwAllPairsDunnTest()</a></code> uses <code><a href="https://rdrr.io/pkg/PMCMRplus/man/kwAllPairsDunnTest.html" class="external-link">PMCMRplus::kwAllPairsDunnTest()</a></code> to perform Dunn’s non-parametric all-pairs comparison test for Kruskal-type ranked data</li>
 <li>
-<code>stat_frdAllPairsNemenyiTest</code> uses <code><a href="https://rdrr.io/pkg/PMCMRplus/man/frdAllPairsNemenyiTest.html" class="external-link">PMCMRplus::frdAllPairsNemenyiTest()</a></code> to perform Nemenyi’s all-pairs comparisons tests of Friedman-type ranked data</li>
+<code><a href="../reference/stat_frdAllPairsNemenyiTest.html">stat_frdAllPairsNemenyiTest()</a></code> uses <code><a href="https://rdrr.io/pkg/PMCMRplus/man/frdAllPairsNemenyiTest.html" class="external-link">PMCMRplus::frdAllPairsNemenyiTest()</a></code> to perform Nemenyi’s all-pairs comparisons tests of Friedman-type ranked data</li>
 </ul>
 </li>
 </ul>
