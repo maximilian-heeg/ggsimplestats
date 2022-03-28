@@ -97,9 +97,10 @@
 <span class="co">#&gt; Warning in kwAllPairsDunnTest.default(x = data$y, g = data$x): Ties are present.</span>
 <span class="co">#&gt; z-quantiles were corrected for ties.</span></code></pre></div>
 <p><img src="basic_files/figure-html/example-1.png" width="672"></p>
-<div class="section level3">
-<h3 id="change-format-of-p-value">Change format of p-value<a class="anchor" aria-label="anchor" href="#change-format-of-p-value"></a>
-</h3>
+</div>
+<div class="section level2">
+<h2 id="change-format-of-p-value">Change format of p-value<a class="anchor" aria-label="anchor" href="#change-format-of-p-value"></a>
+</h2>
 <p>If wanted, the format of the p value / label can be changed. The default uses <code><a href="https://scales.r-lib.org/reference/label_pvalue.html" class="external-link">scales::pvalue</a></code>. To format the p values as ‘stars’ we can. e.g. use the <code>stars.pval</code> function from <code>gtools</code></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">PlantGrowth</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">group</span>, <span class="va">weight</span>, fill<span class="op">=</span><span class="va">group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
@@ -120,9 +121,9 @@
 <span class="co">#&gt; z-quantiles were corrected for ties.</span></code></pre></div>
 <p><img src="basic_files/figure-html/p-value-lambda-function-1.png" width="672"></p>
 </div>
-<div class="section level3">
-<h3 id="use-with-facets">Use with facets<a class="anchor" aria-label="anchor" href="#use-with-facets"></a>
-</h3>
+<div class="section level2">
+<h2 id="use-with-facets">Use with facets<a class="anchor" aria-label="anchor" href="#use-with-facets"></a>
+</h2>
 <p>The statistics are calculated for each panel in the plot.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
@@ -137,9 +138,9 @@
 <span class="co">#&gt; z-quantiles were corrected for ties.</span></code></pre></div>
 <p><img src="basic_files/figure-html/facet-1.png" width="672"></p>
 </div>
-<div class="section level3">
-<h3 id="parametric-test">Parametric test<a class="anchor" aria-label="anchor" href="#parametric-test"></a>
-</h3>
+<div class="section level2">
+<h2 id="parametric-test">Parametric test<a class="anchor" aria-label="anchor" href="#parametric-test"></a>
+</h2>
 <p>Use a Anova with TukeyHSD as a parametric alternative.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">PlantGrowth</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">group</span>, <span class="va">weight</span>, fill<span class="op">=</span><span class="va">group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
@@ -162,7 +163,6 @@
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">facet_grid</a></span><span class="op">(</span><span class="op">~</span><span class="va">sex</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">expansion</a></span><span class="op">(</span>mult <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.15</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="basic_files/figure-html/step.increase-1.png" width="672"></p>
-</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
