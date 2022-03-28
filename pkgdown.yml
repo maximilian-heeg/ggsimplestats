@@ -2,8 +2,8 @@ pandoc: 2.7.3
 pkgdown: 2.0.2
 pkgdown_sha: ~
 articles:
-  basic: basic.html
-last_built: 2022-03-28T21:12Z
+  ggsimplestats: ggsimplestats.html
+last_built: 2022-03-28T22:38Z
 urls:
   reference: https://maximilian-heeg.github.io/ggsimplestats/reference
   article: https://maximilian-heeg.github.io/ggsimplestats/articles

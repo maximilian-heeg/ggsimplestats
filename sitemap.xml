@@ -7,7 +7,7 @@
     <loc>https://maximilian-heeg.github.io/ggsimplestats/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://maximilian-heeg.github.io/ggsimplestats/articles/basic.html</loc>
+    <loc>https://maximilian-heeg.github.io/ggsimplestats/articles/ggsimplestats.html</loc>
   </url>
   <url>
     <loc>https://maximilian-heeg.github.io/ggsimplestats/articles/index.html</loc>
@@ -25,7 +25,13 @@
     <loc>https://maximilian-heeg.github.io/ggsimplestats/reference/index.html</loc>
   </url>
   <url>
+    <loc>https://maximilian-heeg.github.io/ggsimplestats/reference/stat_frdAllPairsNemenyiTest.html</loc>
+  </url>
+  <url>
     <loc>https://maximilian-heeg.github.io/ggsimplestats/reference/stat_kwAllPairsDunnTest.html</loc>
+  </url>
+  <url>
+    <loc>https://maximilian-heeg.github.io/ggsimplestats/reference/stat_mixedModel.html</loc>
   </url>
   <url>
     <loc>https://maximilian-heeg.github.io/ggsimplestats/reference/stat_tukeyHSD.html</loc>
