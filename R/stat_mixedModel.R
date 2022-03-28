@@ -94,7 +94,7 @@ StatMixedModel <- ggproto(
     data$group <- as.factor(data$group)
 
     model <- lme4::lmer(y ~ x + (1|group), data = data)
-    res <- pairs(emmeans::emmeans(model, ~ x)) %>%  as.data.frame()
+    res <- emmeans::pairs(emmeans::emmeans(model, ~ x)) %>%  as.data.frame()
 
     res <- res  %>%
       tidyr::separate(contrast, into = c("x", "xend"), sep = " - ") %>%
