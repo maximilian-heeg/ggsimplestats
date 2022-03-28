@@ -9,14 +9,13 @@ GeomStat <- ggproto(
   Geom,
   required_aes = c("x", "xend", "p", "y"),
   default_aes = aes(
-    xend = xend,
-    colour = "black"
+    xend = xend
   ),
   setup_data = function(data, params) {
     data <- formatPValues(data, hide.ns = params$hide.ns, step.increase = params$step.increase)
     data
   },
-  draw_panel = function(data, panel_params, coord, size, hide.ns, tick.length, format.fun, vjust, step.increase) {
+  draw_panel = function(data, panel_params, coord, size, hide.ns, tick.length, format.fun, vjust, step.increase, colour) {
     coords <-
       coord$transform(data, panel_params)
 
@@ -32,7 +31,7 @@ GeomStat <- ggproto(
       x = rowMeans(cbind(coords$x, coords$xend)),
       y = coords$y,
       gp = grid::gpar(
-        col = coords$colour,
+        col = colour,
         fontsize = size
       )
     )
@@ -48,8 +47,12 @@ GeomStat <- ggproto(
       x0 = bracket$x,
       x1 = bracket$xend,
       y0 = bracket$y,
-      y1 = bracket$yend
+      y1 = bracket$yend,
+      gp = grid::gpar(
+        col = colour
+      )
     )
     return(grid::gList(label, bracket))
-  }
+  },
+  draw_key=NULL
 )

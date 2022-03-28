@@ -14,6 +14,7 @@
 #' @param format.fun A function used to format the p value. Default `scales::pvalue`
 #' @param step.increase Amount of increase between two brackets. Default 0.05
 #' @param vjust A numeric vector specifying vertical justification. Passed on to textGrob.
+#' @param colour Colour of the bracket and label
 #' @param ... Further arguments passed on to the layer in params
 #'
 #' @return A ggplot layer
@@ -35,14 +36,14 @@ stat_kwAllPairsDunnTest <- function(mapping = NULL, data = NULL, geom = GeomStat
                                     position = "identity", na.rm = FALSE, show.legend = NA,
                                     size = 10, hide.ns = TRUE, tick.length = 0.02,
                                     format.fun = pvalue, vjust = 0,
-                                    step.increase = 0.05,
+                                    step.increase = 0.05,colour='black',
                                     inherit.aes = TRUE, ...) {
   layer(
     stat = StatKwAllPairsDunnTest, data = data, mapping = mapping, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
     params = list(
       size = size, hide.ns = hide.ns, tick.length = tick.length,
-      vjust = vjust, step.increase = step.increase,
+      vjust = vjust, step.increase = step.increase, colour = colour,
       format.fun = format.fun, ...
     )
   )

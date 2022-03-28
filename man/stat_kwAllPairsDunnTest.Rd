@@ -17,6 +17,7 @@ stat_kwAllPairsDunnTest(
   format.fun = pvalue,
   vjust = 0,
   step.increase = 0.05,
+  colour = "black",
   inherit.aes = TRUE,
   ...
 )
@@ -66,6 +67,8 @@ display.}
 \item{vjust}{A numeric vector specifying vertical justification. Passed on to textGrob.}
 
 \item{step.increase}{Amount of increase between two brackets. Default 0.05}
+
+\item{colour}{Colour of the bracket and label}
 
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions

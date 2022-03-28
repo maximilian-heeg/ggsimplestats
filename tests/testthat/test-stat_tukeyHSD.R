@@ -40,3 +40,22 @@ test_that("stat_tukeyHSD facet works", {
     plot
   })
 })
+
+test_that("stat_tukeyHSD colors works", {
+  library(ggplot2)
+
+  data <- data.frame(
+    x = c("a", "a", "a", "b", "b", "c", "c", "c", "c"),
+    y = c(1, 2, 3, 4, 5, 6, 7, 8, 9)
+  )
+
+  # set seed for jitter
+  set.seed(42)
+  plot <- ggplot(data, aes(x, y, color=x)) +
+    geom_jitter() +
+    stat_tukeyHSD(colour = 'darkgreen')
+
+  vdiffr::expect_doppelganger("stat_tukeyHSD_color", {
+    plot
+  })
+})
