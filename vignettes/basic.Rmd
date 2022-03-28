@@ -1,5 +1,5 @@
 ---
-title: "Basic usage of `ggsimplestats`"
+title: "Basic usage of ggsimplestats"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{basic}
