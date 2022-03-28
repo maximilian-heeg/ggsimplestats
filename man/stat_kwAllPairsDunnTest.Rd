@@ -2,7 +2,7 @@
 % Please edit documentation in R/stat_kwAllPairsDunnTest.R
 \name{stat_kwAllPairsDunnTest}
 \alias{stat_kwAllPairsDunnTest}
-\title{Add results from TukeyHSD to plot}
+\title{Add results from Dunn's non-parametric test to plot}
 \usage{
 stat_kwAllPairsDunnTest(
   mapping = NULL,
