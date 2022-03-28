@@ -1,8 +1,9 @@
-#' Add results from Dunn's non-parametric test to plot
+#' Add results Nemenyi's All-Pairs Comparisons test to plot
 #'
-#' Uses [PMCMRplus::kwAllPairsDunnTest()] to perform Dunn's non-parametric
-#' all-pairs comparison test for Kruskal-type ranked data and adds the
-#' resulting p-values to the plot.
+#' Uses [PMCMRplus::frdAllPairsNemenyiTest()] to perform Nemenyi's all-pairs
+#' comparisons tests of Friedman-type ranked data and adds the
+#' resulting p-values to the plot. The grouping aesthetics will be used as the
+#' block for `frdAllPairsNemenyiTest`.
 #' Only works if the x-axis is a discrete scale.
 #'
 #' @inheritParams ggplot2::layer
@@ -29,17 +30,24 @@
 #'
 #' theme_set(ggthemes::theme_few())
 #'
-#' ggplot(PlantGrowth, aes(group, weight, fill = group)) +
-#'   geom_boxplot() +
-#'   stat_kwAllPairsDunnTest()
-stat_kwAllPairsDunnTest <- function(mapping = NULL, data = NULL, geom = GeomStat,
+#' df <- data.frame(patient=as.factor(rep(1:5, each=4)),
+#'                  drug=as.factor(rep(1:4, times=5)),
+#'                  response=c(30, 28, 16, 34,
+#'                             14, 18, 10, 22,
+#'                             24, 20, 18, 30,
+#'                             38, 34, 20, 44,
+#'                             26, 28, 14, 30))
+#' ggplot(df, aes(x=drug, y=response, color=patient)) +
+#'   geom_point(position = position_dodge(width = .2)) +
+#'   stat_frdAllPairsNemenyiTest(aes(group = patient))
+stat_frdAllPairsNemenyiTest <- function(mapping = NULL, data = NULL, geom = GeomStat,
                                     position = "identity", na.rm = FALSE, show.legend = NA,
                                     size = 10, hide.ns = TRUE, tick.length = 0.02,
                                     format.fun = pvalue, vjust = 0,
                                     step.increase = 0.05,colour='black',
                                     inherit.aes = TRUE, ...) {
   layer(
-    stat = StatKwAllPairsDunnTest, data = data, mapping = mapping, geom = geom,
+    stat = StatFrdAllPairsNemenyiTest, data = data, mapping = mapping, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
     params = list(
       size = size, hide.ns = hide.ns, tick.length = tick.length,
@@ -50,16 +58,16 @@ stat_kwAllPairsDunnTest <- function(mapping = NULL, data = NULL, geom = GeomStat
 }
 
 
-#' StatKwAllPairsDunnTest
+#' StatFrdAllPairsNemenyiTest
 #'
 #' Stat layer for calculating statistics
-#' Uses `StatKwAllPairsDunnTest` from `PMCMRplus`
+#' Uses `frdAllPairsNemenyiTest` from `PMCMRplus`
 #'
 #' @import ggplot2
 #' @import grid
 #' @noRd
-StatKwAllPairsDunnTest <- ggproto(
-  "StatKwAllPairsDunnTest",
+StatFrdAllPairsNemenyiTest <- ggproto(
+  "StatFrdAllPairsNemenyiTest",
   Stat,
   compute_panel = function(data, scales) {
     if (!requireNamespace("PMCMRplus", quietly = TRUE)) {
@@ -75,13 +83,14 @@ StatKwAllPairsDunnTest <- ggproto(
 
 
 
-    res <- PMCMRplus::kwAllPairsDunnTest(
-      x = data$y,
-      g = data$x
+    res <- PMCMRplus::frdAllPairsNemenyiTest(
+      y = data$y,
+      g = data$x,
+      blocks = data$group
     )
     res <- formatPMCMRPlusResults(res, y = max(data$y))
 
     return(res)
   },
-  required_aes = c("x", "y")
+  required_aes = c("x", "y", "group")
 )

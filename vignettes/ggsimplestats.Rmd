@@ -1,0 +1,188 @@
+---
+title: "Basic usage"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Basic usage}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 7,
+  fig.height = 5
+)
+```
+
+
+
+```{r setup}
+library(ggsimplestats)
+```
+
+
+## Minimal Example
+
+This is a minimal example of how to add the statistics to a plot. In this example we use the `PlantGrowth` dataset.
+
+```{r example, warning=FALSE}
+library(ggplot2)
+library(ggsimplestats)
+
+theme_set(ggthemes::theme_few())
+
+ggplot(PlantGrowth, aes(group, weight, fill=group)) +
+  geom_boxplot()  +
+  stat_kwAllPairsDunnTest()
+```
+
+
+## Test types
+
+Currently, four different tests are supported. 
+
+- Two parametric tests
+  - `stat_tukeyHSD` performes a TukeyHSD posthoc test on a anova.
+  - `stat_mixedModel` creates a mixed model with  `lmer` using `y ~ x + (1|group)`.  
+     In a second step, significanes are calcuated using `pairs(emmeans(model ~ x))`.
+- Two non-parametric tests
+  - `stat_kwAllPairsDunnTest` uses `PMCMRplus::kwAllPairsDunnTest()` to perform Dunn's non-parametric all-pairs comparison test for Kruskal-type ranked data
+  - `stat_frdAllPairsNemenyiTest` uses `PMCMRplus::frdAllPairsNemenyiTest()` to perform Nemenyi's all-pairs comparisons tests of Friedman-type ranked data
+
+
+### TukeyHSD
+
+Uses an Anova with TukeyHSD as a parametric test
+
+```{r TukeyHSD}
+ggplot(PlantGrowth, aes(group, weight, fill=group)) +
+  geom_boxplot()  +
+  stat_tukeyHSD()
+```
+
+
+
+### Mixed model
+
+```{r MixedModel}
+df <- data.frame(patient=as.factor(rep(1:5, each=4)),
+                 drug=as.factor(rep(1:4, times=5)),
+                 response=c(30, 28, 16, 34,
+                            14, 18, 10, 22,
+                            24, 20, 18, 30,
+                            38, 34, 20, 44,
+                            26, 28, 14, 30))
+ggplot(df, aes(x=drug, y=response, color=patient)) +
+  geom_line(aes(group = patient)) +
+  geom_point() +
+  stat_mixedModel(aes(group = patient))
+```
+
+
+
+### Dunn's non-parametric all-pairs
+
+```{r Dunn, warning=FALSE}
+
+ggplot(na.omit(palmerpenguins::penguins), aes(species, bill_length_mm, fill=species)) +
+  geom_boxplot()  +
+  stat_kwAllPairsDunnTest(vjust = -.2)
+
+```
+
+### Nemenyi's all-pairs comparisons tests
+
+```{r Nemenyi}
+df <- data.frame(patient=as.factor(rep(1:5, each=4)),
+                 drug=as.factor(rep(1:4, times=5)),
+                 response=c(30, 28, 16, 34,
+                            14, 18, 10, 22,
+                            24, 20, 18, 30,
+                            38, 34, 20, 44,
+                            26, 28, 14, 30))
+ggplot(df, aes(x=drug, y=response, color=patient)) +
+  geom_point(position = position_dodge(width = .2)) +
+  stat_frdAllPairsNemenyiTest(aes(group = patient))
+```
+
+
+## Change format of p-value
+
+If wanted, the format of the p value / label can be changed. The default uses `scales::pvalue`. To format the p values as 'stars' we can. e.g. use the `stars.pval` function from `gtools`
+
+```{r change-p-value-format, warning=FALSE}
+ggplot(PlantGrowth, aes(group, weight, fill=group)) +
+  geom_boxplot()  +
+  stat_kwAllPairsDunnTest(format.fun = gtools::stars.pval, 
+                          size = 15,
+                          vjust = .3)
+```
+
+Or you can pass a lambda function to create a custom label.
+
+```{r p-value-lambda-function, warning=FALSE}
+ggplot(PlantGrowth, aes(group, weight, fill=group)) +
+  geom_boxplot()  +
+  stat_kwAllPairsDunnTest(format.fun = \(x) {glue::glue('my p-value {scales::pvalue(x)}')},
+                          vjust = -.2)
+```
+
+
+## Facets
+
+All functions calculate the statistics for each panel of the plot individually and
+can easily be used with facets.
+
+```{r kw-facet, warning=FALSE}
+
+ggplot(na.omit(palmerpenguins::penguins), aes(species, bill_length_mm, fill=species)) +
+  geom_boxplot()  +
+  stat_kwAllPairsDunnTest(vjust = -.2) +
+  facet_grid(~sex)
+
+```
+
+
+`stat_tukeyHSD` works with facets too.
+
+```{r tukey-facet}
+ggplot(na.omit(palmerpenguins::penguins), aes(species, bill_length_mm, fill=species)) +
+  geom_boxplot()  +
+  stat_tukeyHSD(vjust = -.2) +
+  facet_grid(~sex)
+```
+
+## Further options
+
+### Step.increase
+
+
+`step.increase` changes the space between two brackets.
+
+```{r step.increase}
+ggplot(na.omit(palmerpenguins::penguins), aes(species, bill_length_mm, fill=species)) +
+  geom_boxplot()  +
+  stat_tukeyHSD(vjust = -.2,
+                step.increase = 0.2,
+                format.fun = \(x) {glue::glue('parametric p-value\n{scales::pvalue(x)}')}) +
+  facet_grid(~sex) +
+  scale_y_continuous(expand = expansion(mult = c(0,0.15)))
+```
+
+
+### Colour
+
+
+`colour` changes the colour of the bracket and the label.
+
+```{r change-colour}
+ggplot(na.omit(palmerpenguins::penguins), aes(species, bill_length_mm, fill=species)) +
+  geom_boxplot()  +
+  stat_tukeyHSD(vjust = -.2,
+                format.fun = \(x) {glue::glue('p: {scales::pvalue(x)}')},
+                colour = 'darkred') +
+  facet_grid(~sex) +
+  scale_y_continuous(expand = expansion(mult = c(0,0.15)))
+```

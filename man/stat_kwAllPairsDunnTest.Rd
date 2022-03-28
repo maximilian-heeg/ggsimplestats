@@ -43,7 +43,7 @@ the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
-\item{geom}{he geometric object to use display the data. Set to \code{GeomStat} and usually no need to change.}
+\item{geom}{the geometric object to use display the data. Set to \code{GeomStat} and usually no need to change.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}

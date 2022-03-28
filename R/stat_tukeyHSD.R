@@ -3,7 +3,7 @@
 #' Uses [stats::TukeyHSD()] to calculate p values for each panel. Only works if the x-axis is a discrete scale.
 #'
 #' @inheritParams ggplot2::layer
-#' @param geom he geometric object to use display the data. Set to `GeomStat` and usually no need to change.
+#' @param geom the geometric object to use display the data. Set to `GeomStat` and usually no need to change.
 #' @param size Fontsize for the annotation
 #' @param na.rm If `FALSE`, the default, missing values are removed with a warning. If `TRUE`, missing values are silently removed.
 #' @param hide.ns Should p-values lower than 0.05 be removed? Default TRUE

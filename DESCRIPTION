@@ -18,11 +18,14 @@ Imports:
     tibble,
     tidyr
 Suggests: 
+    emmeans,
     ggthemes,
     glue,
     gtools,
     knitr,
+    lme4,
     palmerpenguins,
+    pbkrtest,
     PMCMRplus,
     rmarkdown,
     testthat (>= 3.0.0),
