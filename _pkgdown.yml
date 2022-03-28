@@ -1,4 +1,7 @@
 url: https://maximilian-heeg.github.io/ggsimplestats/
 template:
   bootstrap: 5
+  includes:
+    in_header: |
+      <script async defer data-website-id="ca435aed-def4-432d-8336-de5e24d4c969" src="https://umami.beetletun.de/umami.js"></script>
 
