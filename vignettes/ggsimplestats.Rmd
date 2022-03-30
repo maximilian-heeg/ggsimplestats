@@ -19,7 +19,10 @@ knitr::opts_chunk$set(
 
 
 ```{r setup}
+library(ggplot2)
 library(ggsimplestats)
+
+theme_set(ggthemes::theme_few())
 ```
 
 
@@ -28,14 +31,9 @@ library(ggsimplestats)
 This is a minimal example of how to add the statistics to a plot. In this example we use the `PlantGrowth` dataset.
 
 ```{r example, warning=FALSE}
-library(ggplot2)
-library(ggsimplestats)
-
-theme_set(ggthemes::theme_few())
-
 ggplot(PlantGrowth, aes(group, weight, fill=group)) +
   geom_boxplot()  +
-  stat_kwAllPairsDunnTest()
+  stat_kwAllPairsDunnTest(vjust = -0.2)
 ```
 
 
@@ -59,7 +57,7 @@ Uses an Anova with TukeyHSD as a parametric test
 ```{r TukeyHSD}
 ggplot(PlantGrowth, aes(group, weight, fill=group)) +
   geom_boxplot()  +
-  stat_tukeyHSD()
+  stat_tukeyHSD(vjust = -0.2)
 ```
 
 
@@ -77,7 +75,9 @@ df <- data.frame(patient=as.factor(rep(1:5, each=4)),
 ggplot(df, aes(x=drug, y=response, color=patient)) +
   geom_line(aes(group = patient)) +
   geom_point() +
-  stat_mixedModel(aes(group = patient))
+  stat_mixedModel(aes(group = patient),
+                  vjust = -0.2,
+                  step.increase = 0.06)
 ```
 
 
@@ -104,7 +104,8 @@ df <- data.frame(patient=as.factor(rep(1:5, each=4)),
                             26, 28, 14, 30))
 ggplot(df, aes(x=drug, y=response, color=patient)) +
   geom_point(position = position_dodge(width = .2)) +
-  stat_frdAllPairsNemenyiTest(aes(group = patient))
+  stat_frdAllPairsNemenyiTest(aes(group = patient),
+                              vjust = -0.2)
 ```
 
 
@@ -139,7 +140,8 @@ can easily be used with facets.
 
 ggplot(na.omit(palmerpenguins::penguins), aes(species, bill_length_mm, fill=species)) +
   geom_boxplot()  +
-  stat_kwAllPairsDunnTest(vjust = -.2) +
+  stat_kwAllPairsDunnTest(vjust = -.2,
+                          step.increase = 0.06) +
   facet_grid(~sex)
 
 ```
@@ -150,39 +152,12 @@ ggplot(na.omit(palmerpenguins::penguins), aes(species, bill_length_mm, fill=spec
 ```{r tukey-facet}
 ggplot(na.omit(palmerpenguins::penguins), aes(species, bill_length_mm, fill=species)) +
   geom_boxplot()  +
-  stat_tukeyHSD(vjust = -.2) +
+  stat_tukeyHSD(vjust = -.2,
+                step.increase = 0.06) +
   facet_grid(~sex)
 ```
 
 ## Further options
 
-### Step.increase
 
-
-`step.increase` changes the space between two brackets.
-
-```{r step.increase}
-ggplot(na.omit(palmerpenguins::penguins), aes(species, bill_length_mm, fill=species)) +
-  geom_boxplot()  +
-  stat_tukeyHSD(vjust = -.2,
-                step.increase = 0.2,
-                format.fun = \(x) {glue::glue('parametric p-value\n{scales::pvalue(x)}')}) +
-  facet_grid(~sex) +
-  scale_y_continuous(expand = expansion(mult = c(0,0.15)))
-```
-
-
-### Colour
-
-
-`colour` changes the colour of the bracket and the label.
-
-```{r change-colour}
-ggplot(na.omit(palmerpenguins::penguins), aes(species, bill_length_mm, fill=species)) +
-  geom_boxplot()  +
-  stat_tukeyHSD(vjust = -.2,
-                format.fun = \(x) {glue::glue('p: {scales::pvalue(x)}')},
-                colour = 'darkred') +
-  facet_grid(~sex) +
-  scale_y_continuous(expand = expansion(mult = c(0,0.15)))
-```
+For further customization options please see `vignette("options")`

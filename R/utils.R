@@ -45,7 +45,26 @@ formatPValues <- function(data, step.increase = 0.05, hide.ns = TRUE) {
 
   data <- data %>%
     dplyr::group_by(.data$PANEL) %>%
-    dplyr::mutate(y = .data$y + .data$y * step.increase * dplyr::row_number())
+    ## create a y max that is a little higher than needed to expand the scales
+    dplyr::mutate(ymax = .data$y + .data$range * step.increase * (dplyr::row_number()+1))
+
+  return(data)
+}
+
+
+#' Helper function to adjust the y position
+#'
+#'
+#' @param data data.frame
+#' @param step.increase Increse betweeen the different brackets
+#'
+#' @return data.frame
+#' @noRd
+adjustYPosition <- function(data, step.increase) {
+
+  data <- data %>%
+    dplyr::group_by(.data$PANEL) %>%
+    dplyr::mutate(y = .data$y + step.increase * dplyr::row_number())
 
   return(data)
 }

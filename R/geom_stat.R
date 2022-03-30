@@ -16,6 +16,9 @@ GeomStat <- ggproto(
     data
   },
   draw_panel = function(data, panel_params, coord, size, hide.ns, tick.length, format.fun, vjust, step.increase, colour) {
+
+    # the actial y position adation takes place here
+    data <- adjustYPosition(data, step.increase = (panel_params$y$limits[2]-panel_params$y$limits[1]) * step.increase )
     coords <-
       coord$transform(data, panel_params)
 

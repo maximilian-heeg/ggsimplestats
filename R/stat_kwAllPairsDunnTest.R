@@ -80,6 +80,7 @@ StatKwAllPairsDunnTest <- ggproto(
       g = data$x
     )
     res <- formatPMCMRPlusResults(res, y = max(data$y))
+    res$range <- max(data$y) - min(data$y)
 
     return(res)
   },

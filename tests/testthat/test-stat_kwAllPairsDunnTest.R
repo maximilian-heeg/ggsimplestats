@@ -46,3 +46,26 @@ test_that("stat_kwAllPairsDunnTest colors works", {
     plot
   })
 })
+
+
+test_that("stat_kwAllPairsDunnTest bracket look good if scales not free", {
+  library(ggplot2)
+
+
+
+
+  df <- data.frame(
+    value = c(1,2,3,4, 12,23,13,14),
+    group = rep(c('a','b'), times=4),
+    facet = c(rep(c('x'), times=4), rep(c('y'), times=4))
+  )
+
+  plot <- ggplot(df, aes(x=group, y=value)) +
+    facet_grid(facet~.) +
+    geom_point() +
+    stat_kwAllPairsDunnTest(hide.ns = FALSE)
+
+  vdiffr::expect_doppelganger("stat_kwAllPairsDunnTest_scales", {
+    plot
+  })
+})

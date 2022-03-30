@@ -89,6 +89,7 @@ StatFrdAllPairsNemenyiTest <- ggproto(
       blocks = data$group
     )
     res <- formatPMCMRPlusResults(res, y = max(data$y))
+    res$range <- max(data$y) - min(data$y)
 
     return(res)
   },

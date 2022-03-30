@@ -103,6 +103,7 @@ StatMixedModel <- ggproto(
     res$x <- as.numeric(as.character(res$x))
     res$xend <- as.numeric(as.character(res$xend))
     res$y <- max(data$y)
+    res$range <- max(data$y) - min(data$y)
 
     return(res)
   },

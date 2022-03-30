@@ -1,0 +1,161 @@
+---
+title: "Options"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Options}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 7,
+  fig.height = 5
+)
+```
+
+```{r setup}
+library(ggplot2)
+library(ggsimplestats)
+
+theme_set(ggthemes::theme_few())
+```
+
+
+This vignette shows the options that are available for all functions to customize the results.
+
+
+
+## Step.increase
+
+
+`step.increase` changes the space between two brackets. Sometimes it is then necessary to expand the scales. This can e.g. be done with `scale_y_continuous(expand = expansion(mult = c(0.05,0.15)))`
+
+```{r step.increase}
+ggplot(na.omit(palmerpenguins::penguins), aes(species, bill_length_mm, fill=species)) +
+  geom_boxplot()  +
+  stat_tukeyHSD(vjust = -.2,
+                step.increase = 0.2,
+                format.fun = \(x) {glue::glue('parametric p-value\n{scales::pvalue(x)}')}) +
+  facet_grid(~sex) +
+  scale_y_continuous(expand = expansion(mult = c(0.05,0.15)))
+```
+
+
+## Colour
+
+
+`colour` changes the colour of the bracket and the label.
+
+```{r change-colour}
+ggplot(na.omit(palmerpenguins::penguins), aes(species, bill_length_mm, fill=species)) +
+  geom_boxplot()  +
+  stat_tukeyHSD(vjust = -.2,
+                step.increase = 0.08,
+                format.fun = \(x) {glue::glue('p: {scales::pvalue(x)}')},
+                colour = 'darkred') +
+  facet_grid(~sex) +
+  scale_y_continuous(expand = expansion(mult = c(0.05,0.15)))
+```
+
+
+## Tick length
+
+Use `tick.length` to control the length of the ticks of the brackets. 
+
+
+```{r tick-length-1}
+ggplot(na.omit(palmerpenguins::penguins), aes(species, bill_length_mm, fill=species)) +
+  geom_boxplot()  +
+  stat_tukeyHSD(vjust = -.2,
+                step.increase = 0.12,
+                format.fun = \(x) {glue::glue('p: {scales::pvalue(x)}')},
+                tick.length = 0.05) +
+  facet_grid(~sex) +
+  scale_y_continuous(expand = expansion(mult = c(0,0.15)))
+```
+
+Use `0` to remove them.
+
+```{r tick-length-0}
+ggplot(na.omit(palmerpenguins::penguins), aes(species, bill_length_mm, fill=species)) +
+  geom_boxplot()  +
+  stat_tukeyHSD(vjust = -.2,
+                step.increase = 0.05,
+                format.fun = \(x) {glue::glue('p: {scales::pvalue(x)}')},
+                tick.length = 0) +
+  facet_grid(~sex) +
+  scale_y_continuous(expand = expansion(mult = c(0,0.15)))
+```
+
+## Text adjustment
+
+Use `vjust` to control the the vertical adjustment of the text. 
+
+
+```{r vjust}
+ggplot(na.omit(palmerpenguins::penguins), aes(species, bill_length_mm, fill=species)) +
+  geom_boxplot()  +
+  stat_tukeyHSD(vjust = -1,
+                step.increase = 0.12,
+                format.fun = \(x) {glue::glue('p: {scales::pvalue(x)}')}) +
+  facet_grid(~sex) +
+  scale_y_continuous(expand = expansion(mult = c(0,0.15))) +
+  ggtitle('Big gap')
+
+ggplot(na.omit(palmerpenguins::penguins), aes(species, bill_length_mm, fill=species)) +
+  geom_boxplot()  +
+  stat_tukeyHSD(vjust = 1.2,
+                step.increase = 0.12,
+                format.fun = \(x) {glue::glue('p: {scales::pvalue(x)}')}) +
+  facet_grid(~sex) +
+  scale_y_continuous(expand = expansion(mult = c(0,0.15))) +
+  ggtitle('Text below')
+```
+
+## Text size
+
+Use `size` to control the the text size 
+
+
+```{r size}
+ggplot(na.omit(palmerpenguins::penguins), aes(species, bill_length_mm, fill=species)) +
+  geom_boxplot()  +
+  stat_tukeyHSD(size = 5,
+                step.increase = 0.12,
+                vjust = -.2,
+                format.fun = \(x) {glue::glue('p: {scales::pvalue(x)}')}) +
+  facet_grid(~sex) +
+  scale_y_continuous(expand = expansion(mult = c(0,0.15))) +
+  ggtitle('Tiny text')
+
+ggplot(na.omit(palmerpenguins::penguins), aes(species, bill_length_mm, fill=species)) +
+  geom_boxplot()  +
+  stat_tukeyHSD(size = 20,
+                step.increase = 0.12,
+                vjust = -.2,
+                format.fun = \(x) {glue::glue('{scales::pvalue(x)}')}) +
+  facet_grid(~sex) +
+  scale_y_continuous(expand = expansion(mult = c(0,0.15))) +
+  ggtitle('Giant text')
+```
+
+## Show all p-values
+
+Use `hide.ns` to to remove non-significant p values (cutoff `0.05`). Default is `TRUE`. Set `hide.ns=FALSE` to show all p-values.
+
+
+```{r hide-ns}
+ggplot(na.omit(palmerpenguins::penguins), aes(species, bill_length_mm, fill=species)) +
+  geom_boxplot()  +
+  stat_tukeyHSD(vjust = -.2,
+                step.increase = 0.08,
+                hide.ns = FALSE) +
+  facet_grid(~sex) +
+  scale_y_continuous(expand = expansion(mult = c(0,0.15))) +
+  ggtitle('All p-values')
+
+```
+
