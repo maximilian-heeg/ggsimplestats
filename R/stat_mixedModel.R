@@ -64,6 +64,7 @@ stat_mixedModel <- function(mapping = NULL, data = NULL, geom = GeomStat,
 #'
 #' @import ggplot2
 #' @import grid
+#' @importFrom tidyr separate
 #' @noRd
 StatMixedModel <- ggproto(
   "StatMixedModel",

@@ -8,7 +8,7 @@ Description: Extendings ggplot2 to easily add statistics to boxplots.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 Imports: 
     dplyr,
     ggplot2,

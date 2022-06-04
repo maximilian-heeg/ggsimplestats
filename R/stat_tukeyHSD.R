@@ -56,6 +56,7 @@ stat_tukeyHSD <- function(mapping = NULL, data = NULL, geom = GeomStat,
 #' @import grid
 #' @import stats
 #' @import tibble
+#' @importFrom tidyr separate
 #' @noRd
 StatTukeyHSD <- ggproto(
   "StatTukeyHSD",
