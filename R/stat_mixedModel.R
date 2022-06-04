@@ -100,8 +100,8 @@ StatMixedModel <- ggproto(
       tidyr::separate(contrast, into = c("x", "xend"), sep = " - ") %>%
       dplyr::select(x, xend, p = `p.value`)
 
-    res$x <- as.numeric(as.character(res$x))
-    res$xend <- as.numeric(as.character(res$xend))
+    res$x <- as.numeric(substring(as.character(res$x),2))
+    res$xend <- as.numeric(substring(as.character(res$xend),2))
     res$y <- max(data$y)
     res$range <- max(data$y) - min(data$y)
 
